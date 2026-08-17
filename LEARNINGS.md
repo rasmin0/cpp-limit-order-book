@@ -1,45 +1,66 @@
 ## Phases
 M1 - Specification & Setup
+
 M2 - Order Book
+
 M3 - Matching Engine
+
 M4 - Cancellation & CLI
+
 M5 - Testing & Polish
 
 ## Specification & Setup
 The purpose is to define behavior before coding.
 Think through:
+
 What is an order?
+
 When do buy/sell orders match?
+
 What gets priority?
+
 What happens with partial fills?
+
 What happens to unmatched quantity?
+
 What is invalid input?
+
 How should cancellation behave?
+
 What is explicitly out of scope?
 
 include/
+
 Public interfaces — what the classes allow you to do.
 
 src/
+
 Implementation — how those operations work.
 
 CMakeLists.txt
+
 Describes how to build the program.
+
 CMakeLists.txt
       ↓
+
 generates build system
       ↓
+
 Make / Ninja / etc.
       ↓
+
 compiler
 
 Using C++17 compiler. 
 g++ and clang++ are commands used to compile C++ source code into programs the computer can run.
 
 g++ = the C++ compiler command from GCC (GNU Compiler Collection)
+
 clang++ = the C++ compiler command from Clang/LLVM
 
 clang++ -std=c++17 main.cpp -o app
+
 This means: Compile main.cpp as C++17 and create an executable named app.
 
 ## What am I building?
