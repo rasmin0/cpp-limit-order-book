@@ -290,3 +290,59 @@ Check Order Book
 Trade if possible
    ↓
 Put leftover order in book
+
+
+## Price-Time Priority
+Price-time priority is the rule for deciding who gets served first, if there are multiple orders.
+
+Better price goes first
+
+Suppose buyers are waiting:
+BUY 5 @ $100
+BUY 5 @ $102
+BUY 5 @ $101
+
+A seller arrives.
+
+The buyer offering $102 gets priority because that's the best price for the seller.
+
+So the order is:
+$102 first
+$101 second
+$100 third
+
+For sellers, it works the opposite way.
+
+Suppose:
+SELL 5 @ $105
+SELL 5 @ $103
+SELL 5 @ $104
+
+A buyer arrives.
+
+The seller asking for $103 goes first because that is the cheapest seller.
+So:
+$103 first
+$104 second
+$105 third
+
+That's the price part.
+
+If the prices are equal, earlier order goes first.
+
+Suppose three buyers all want the same price:
+10:00 AM → Alice: BUY 5 @ $100
+10:01 AM → Bob:   BUY 5 @ $100
+10:02 AM → Chris: BUY 5 @ $100
+
+Since the price is identical, price cannot decide.
+
+So we use arrival time:
+Alice first
+Bob second
+Chris third
+
+The rule is:
+Best price first. If the price is tied, oldest order first.
+
+We'll need to track both price and time arrived as a tuple in the queue. 
