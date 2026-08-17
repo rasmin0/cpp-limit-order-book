@@ -1,6 +1,8 @@
 # cpp-limit-order-book
 
 ## Structure
+
+```
 cpp-limit-order-book/
 ├── CMakeLists.txt
 ├── README.md
@@ -16,3 +18,4 @@ cpp-limit-order-book/
 │   └── order_book_tests.cpp
 └── benchmarks/
     └── replay_benchmark.cpp
+```
