@@ -38,7 +38,7 @@ struct Order
         }
 
         if (time < 0) {
-            throw std::invalid_argument("Time must be positive");
+            throw std::invalid_argument("Time can't be negative");
         }
     }
 

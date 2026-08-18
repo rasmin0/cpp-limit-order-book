@@ -6,7 +6,7 @@ int main()
 {
     // Test a valid order
     try {
-        Order order{"1234", Side::SELL, 14.0, 5};
+        Order order("1234", Side::SELL, 14.0, 5, 0);
 
         std::cout << "Order created successfully\n";
         std::cout << "ID: " << order.id << '\n';
@@ -22,7 +22,7 @@ int main()
 
     // Test an invalid order
     try {
-        Order invalidOrder{"5678", Side::BUY, -10.0, 5};
+        Order invalidOrder("5678", Side::BUY, -10.0, 5, -1);
         std::cerr << "Test failed: invalid order was created\n";
     }
     catch (const std::invalid_argument& error) {
