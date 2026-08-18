@@ -1,3 +1,5 @@
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
 cmake_minimum_required(VERSION 3.14)
 
 project(cpp_limit_order_book)
@@ -14,3 +16,15 @@ FetchContent_Declare(
 
 FetchContent_MakeAvailable(googletest)
 
+enable_testing()
+
+add_executable(smoke_test
+    tests/smoke_test.cpp
+)
+
+target_include_directories(smoke_test PRIVATE include)
+
+target_link_libraries(smoke_test PRIVATE GTest::gtest_main)
+
+include(GoogleTest)
+gtest_discover_tests(smoke_test)

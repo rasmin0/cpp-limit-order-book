@@ -18,11 +18,12 @@ struct Order
     int quantity;
     int time;
 
-    Order(std::string id, Side side, double price, int quantity)
+    Order(std::string id, Side side, double price, int quantity, int time)
         : id(id), 
           side(side), 
           price(price), 
-          quantity(quantity) 
+          quantity(quantity),
+          time(time) 
     {
         if (id.empty()) {
             throw std::invalid_argument("ID must have a value");
