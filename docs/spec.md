@@ -19,4 +19,9 @@ Better price is prioritized.
 
 If the prices are equal, earlier order goes first.
 
+Partially filled orders stay in the queue with their remaining quantity.
+
+Unmatched orders means that the seller's asking price is higher than the bid, so no trade happens; everything is left unchanged.
+
+If there's a cancellation, the order is removed from the queue.
 
