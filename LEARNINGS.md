@@ -216,6 +216,8 @@ cancelOrder will cancel by ID for simplicty. Any other information about the ord
 & = pass the original string by reference instead of making a copy.
 const = the function promises not to modify that original string.
 
+Time should actually not be tracked by the caller. The caller can't be trusted to give every order the correct global arrival number. As such, OrderBook should own a counter and assign the arrival sequence itself.
+
 ## The Matching Engine
 The matching engine looks at incoming orders and decides whether they can trade with orders already waiting in the order book.
 

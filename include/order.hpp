@@ -16,14 +16,12 @@ struct Order
     Side side;
     double price;
     int quantity;
-    int time;
 
-    Order(std::string id, Side side, double price, int quantity, int time)
+    Order(std::string id, Side side, double price, int quantity)
         : id(id), 
           side(side), 
           price(price), 
-          quantity(quantity),
-          time(time) 
+          quantity(quantity)
     {
         if (id.empty()) {
             throw std::invalid_argument("ID must have a value");
@@ -35,10 +33,6 @@ struct Order
 
         if (quantity <= 0) {
             throw std::invalid_argument("Quantity must be greater than 0");
-        }
-
-        if (time < 0) {
-            throw std::invalid_argument("Time can't be negative");
         }
     }
 

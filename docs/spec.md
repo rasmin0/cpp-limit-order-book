@@ -7,7 +7,6 @@ Order ID
 Side (BUY/SELL)
 Price
 Quantity
-Time
 
 This will be implemented as a struct with a constructor included. I am including a constructor because values are normalized during creation, input can be validated, required information cannot be accidentally omitted.
 
@@ -24,9 +23,6 @@ Partially filled orders stay in the queue with their remaining quantity.
 Unmatched orders means that the seller's price is higher than the incoming buy order, or the buyer's price is lower than the incoming sell order. As a result, no trade happens; the incoming order gets added to the queue.
 
 If there's a cancellation, the order is removed from the queue.
-
-Time is the order in which the orders arrive. No actual time is being tracked.
-The first order will be numbered 0, the second 1, and so on, no matter the side.
 
 Trades happen at the resting price.
 
@@ -50,6 +46,8 @@ Each trade reports the buyer ID, seller ID, execution price, executed quantity, 
 
 ## Order Book
 
+OrderBook will be implemented as a class, with private members being buyOrders, sellOrders, active IDs and time. Public members being methods like adding or cancelling an order.
+
 BUY side needs prices ordered in descending order. SELL side needs prices ordered in ascending order.
 Best price and earliest time is needed for sorted order.
 
@@ -59,6 +57,6 @@ We will use one for BUY side and one for SELL side.
 
 We will also keep track of active IDs using an unordered map, with the key being the ID and value being the price and side (BUY/SELL).
 
-OrderBook will be implemented as a class, with private members being buyOrders, sellOrders and active IDs. Public members being methods like adding or cancelling an order.
-
 Methods for the class include addOrder and cancelOrder, which will both be void.
+
+Time will be incremented each time a new order is added to the queue. 
