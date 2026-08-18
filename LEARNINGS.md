@@ -190,6 +190,28 @@ Order = one person's request.
 
 Order book = the organized waiting list containing everybody's unfilled requests.
 
+I was deciding using a queue as the data structure. This would slightly inefficient because every time we add an order, we would have to sort the queue by price and time. I was also thinking about using a heap. It would be easy to retrieve the best order but accessing/removing orders from the middle would get messy.
+
+Finally, I decided on using a map with the key being that particular price point and the value being a deque of orders. This preserves the best price ordering, and the FIFO property needed. I also could have used a queue or vector as the key. The problem with a queue is that we can only access the front and back of the queue. So, if an order is cancelled, then we can't iterate through the queue and remove the order. We would have to pop each order if it's order ID doesn't match the cancelled order and add it to a temporary queue. We can iterate through a vector and it has efficient push front, push back, front access and back access operations. The problem is, if we need to remove an element from the middle, we woulc have to shift everything left, which would be inefficient.
+
+We will also keep track of the IDs using an unordered_map, with the key being the ID and the value being the price and the side. I was deciding between using a set, map and unordered_map. At first, I was thinking that maybe we don't need a key-value pair since we are just keeping track of IDs, but then I realized that keeping track of the price and the side will make cancellation more efficient because we can jump directly to the correct map and price. I decided to use an unordered map over a map because sorted order for cheking exisitng IDs isn't necessary.
+
+OrderBook should be a class because it owns related data (buyOrders, sellOrders, activeIDs) and the operations that act on that data, such as adding and cancelling orders.
+
+buyOrders, sellOrders and activeIDs will all be private because we don't want something like: buyOrders.clear(); it has to go through methods you control, like:
+book.cancelOrder("A123");
+
+That way, OrderBook can make sure all related state stays consistent, including the price maps and activeIDs.
+Private protects the book from being changed incorrectly from the outside.
+
+This concept is called encapsulation.
+In simple terms, encapsulation means:
+Keep an object's internal data protected, and only allow controlled access through its public methods.
+
+So in your OrderBook:
+private data structures = hidden internal state
+public methods like addOrder() or cancelOrder() = controlled ways to change that state.
+
 ## The Matching Engine
 The matching engine looks at incoming orders and decides whether they can trade with orders already waiting in the order book.
 
