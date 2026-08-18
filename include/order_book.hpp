@@ -3,9 +3,9 @@
 #include "order.hpp"
 #include <map>
 #include <deque>
-#include <set>
 #include <string>
-#include <unordered_set>
+#include <unordered_map>
+#include <functional>
 
 struct OrderLocation {
     Side side;
@@ -21,5 +21,6 @@ private:
 public:
     // submit/add order
     // cancel order
-    
+    void addOrder(Order order);
+    void cancelOrder(const std::string& id);
 };

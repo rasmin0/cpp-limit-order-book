@@ -53,7 +53,6 @@ Each trade reports the buyer ID, seller ID, execution price, executed quantity, 
 BUY side needs prices ordered in descending order. SELL side needs prices ordered in ascending order.
 Best price and earliest time is needed for sorted order.
 
-
 This will be implemented using a ordered map, with the keys being the prices and the values being a deque of orders.
 
 We will use one for BUY side and one for SELL side.
@@ -61,3 +60,5 @@ We will use one for BUY side and one for SELL side.
 We will also keep track of active IDs using an unordered map, with the key being the ID and value being the price and side (BUY/SELL).
 
 OrderBook will be implemented as a class, with private members being buyOrders, sellOrders and active IDs. Public members being methods like adding or cancelling an order.
+
+Methods for the class include addOrder and cancelOrder, which will both be void.

@@ -212,6 +212,8 @@ So in your OrderBook:
 private data structures = hidden internal state
 public methods like addOrder() or cancelOrder() = controlled ways to change that state.
 
+cancelOrder will cancel by ID for simplicty. Any other information about the order is unecessary.
+
 ## The Matching Engine
 The matching engine looks at incoming orders and decides whether they can trade with orders already waiting in the order book.
 
