@@ -3,7 +3,8 @@
 #include <string>
 #include <stdexcept>
 
-enum class Side {
+enum class Side 
+{
     BUY,
     SELL
 };
