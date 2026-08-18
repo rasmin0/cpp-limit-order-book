@@ -365,5 +365,3 @@ Chris third
 
 The rule is:
 Best price first. If the price is tied, oldest order first.
-
-We'll need to track both price and time arrived as a tuple in the queue. 
