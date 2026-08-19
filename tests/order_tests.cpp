@@ -1,9 +1,6 @@
 #include <gtest/gtest.h>
 #include "order.hpp"
 
-// ORDER TESTS
-// ---------------------------------------------------------------------------------------------
-
 TEST(OrderTest, ValidOrderStoresFields) {
     Order order("123", Side::BUY, 100.0, 5);
 

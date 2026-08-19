@@ -2,7 +2,7 @@
 #include "order_book.hpp"
 #include <stdexcept>
 
-// ORDER BOOK TESTS
+// ORDER BOOK ADD ORDER TESTS
 // ---------------------------------------------------------------------------------------------
 
 TEST(OrderBookTest, AddValidBuyOrder) {
@@ -53,6 +53,9 @@ TEST(OrderBookTest, AddDuplicateBuySellOrder) {
 
     EXPECT_THROW(book.addOrder(order2), std::invalid_argument);
 }
+
+// ORDER BOOK CANCEL ORDER TESTS
+// ---------------------------------------------------------------------------------------------
 
 TEST(OrderBookTest, CancelValidBuyOrder) {
     OrderBook book;
@@ -107,3 +110,7 @@ TEST(OrderBookTest, ReuseCancelledSellID) {
 
     EXPECT_NO_THROW(book.addOrder(order2));
 }
+
+// ORDER BOOK MATCH BUY TESTS
+// ---------------------------------------------------------------------------------------------
+
