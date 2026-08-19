@@ -26,13 +26,21 @@ add_executable(order_book_tests
     tests/order_book_tests.cpp
 )
 
+add_executable(order_tests
+    tests/order_tests.cpp
+)
+
 target_include_directories(smoke_test PRIVATE include)
 
 target_include_directories(order_book_tests PRIVATE include)
 
+target_include_directories(order_tests PRIVATE include)
+
 target_link_libraries(smoke_test PRIVATE GTest::gtest_main)
 target_link_libraries(order_book_tests PRIVATE GTest::gtest_main)
+target_link_libraries(order_tests PRIVATE GTest::gtest_main)
 
 include(GoogleTest)
 gtest_discover_tests(smoke_test)
 gtest_discover_tests(order_book_tests)
+gtest_discover_tests(order_tests)
