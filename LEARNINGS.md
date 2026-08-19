@@ -344,6 +344,45 @@ We will use two different functions for matching a trade; one for and incoming B
 
 This will make the logic cleaner and make the code easier to debug.
 
+When a order is added to the book, through the addOrder function, it's checked if its a valid order (the ID doesn't already exist).
+
+If it's a valid order, it's then checked if it's a BUY or SELL order.
+
+If it's a valid BUY order, the matchBuy function is called.
+
+The incoming BUY order is compared with the best resting SELL order. 
+
+If BUY price >= SELL price, a trade can happen at the resting SELL price.
+
+A trade is executed at the minimum of the incoming BUY shares and resting SELL shares.
+
+If the incoming BUY order has shares left and the resting SELL order doesn't after execution, the resting SELL order is removed from the book and the activeIDs map. If there are anymore resting orders in the SELL book, the process is repeated until there the incoming BUY order has no shares left, no trade can happen or there are no SELL orders left. If no trade can happen or there are no SELL orders left, the BUY order is added to the book.
+
+If the incoming BUY order has no shares left, it never gets added to the book. The resting SELL stays at the front of the deque and the quantity gets updated accordingly, while keeping its original priority/time.
+
+If it's a valid SELL order, the matchSell function is called.
+
+The incoming SELL order is compared with the best resting BUY order. 
+
+If SELL price <= BUY price, a trade can happen at the resting BUY price.
+
+A trade is executed at the minimum of the SELL shares and resting BUY shares.
+
+If the incoming SELL order has shares left and the resting BUY order doesn't after execution, the resting BUY order is removed from the book and the activeIDs map. If there are anymore resting orders in the BUY book, the process is repeated until there the incoming BUY order has no shares left, no trade can happen or there are no BUY orders left. If no trade can happen or there are no BUY orders left, the SELL order is added to the book.
+
+If the incoming SELL order has no shares left, it never gets added to the book. The resting BUY stays at the front of the deque and the quantity gets updated accordingly, while keeping its original priority/time.
+
+I decided to create a Trade object as well as a tradeHistory vector. This way, if a trade successfully happened , we can keep track of things such as the buyer and seller's ID, the price traded at, and the quantity traded at. 
+
+I was originally planning on having the Trade object as a return value to the execute trade functions, but this wouldn't be as clean because a single matchBuy or matchSell function call could execute multiple trades, and we need to keep track of all of them. using a vector of tradeHistory as a member of the order book class would be cleanest to keep track of every trade happening. 
+
+The next problem was actually accessing the trades in the tradeHistory vector, since it's private. I decided to write a getTradeHistory function, which can't be modified by the caller or the function, to return the tradeHistory vector. 
+
+I also created a isActive function to see if an ID is currently being used in activeIDs map. This is mostly for testing purposes right now. 
+
+In the addOrder function, I moved the nextTime assignment further down. This is because a time should only be assigned to an order if it's joining the book. If an incoming order successfully trades and is filled, the order shouldn't be added to the book and assigned a time. It's only assigned a time if it's partially filled and joins the book for waiting. 
+
+
 
 ## Price-Time Priority
 Price-time priority is the rule for deciding who gets served first, if there are multiple orders.

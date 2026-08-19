@@ -1,5 +1,6 @@
 #include <gtest/gtest.h>
 #include "order_book.hpp"
+#include "order.hpp"
 #include <stdexcept>
 
 // ORDER BOOK ADD ORDER TESTS
@@ -112,5 +113,62 @@ TEST(OrderBookTest, ReuseCancelledSellID) {
 }
 
 // ORDER BOOK MATCH BUY TESTS
+// ---------------------------------------------------------------------------------------------
+
+TEST(MatchBuyTest, MatchValidOrder) {
+
+}
+
+TEST(MatchBuyTest, EvenTrade) {
+    OrderBook book;
+
+    Order order1("123", Side::BUY, 100.0, 10);
+    Order order2("1234", Side::SELL, 99.0, 10);
+
+    book.addOrder(order2);
+    book.addOrder(order1);
+
+    const auto& trades = book.getTradeHistory();
+
+    ASSERT_EQ(trades.size(), 1);
+    EXPECT_EQ(trades[0].buyerID, "123");
+    EXPECT_EQ(trades[0].sellerID, "1234");
+    EXPECT_DOUBLE_EQ(trades[0].price, 99.0);
+    EXPECT_EQ(trades[0].quantity, 10);
+    EXPECT_FALSE(book.isActive("1234"));
+    EXPECT_FALSE(book.isActive("123"));
+
+}
+
+TEST(MatchBuyTest, NoTrade) {
+    OrderBook book;
+
+    Order order1("123", Side::BUY, 100.0, 10);
+    Order order2("1234", Side::SELL, 101.0, 10);
+
+    book.addOrder(order2);
+    book.addOrder(order1);
+
+    const auto& trades = book.getTradeHistory();
+
+    ASSERT_EQ(trades.size(), 0);
+    EXPECT_TRUE(book.isActive("1234"));
+    EXPECT_TRUE(book.isActive("123"));
+}
+
+TEST(MatchBuyTest, SellIsEmpty) {
+
+}
+
+
+TEST(MatchBuyTest, PartiallyFilledBuy) {
+
+}
+
+TEST(MatchBuyTest, PartiallyFilledSell) {
+
+}
+
+// ORDER BOOK MATCH SELL TESTS
 // ---------------------------------------------------------------------------------------------
 
