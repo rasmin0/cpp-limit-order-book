@@ -7,6 +7,7 @@ Order ID
 Side (BUY/SELL)
 Price
 Quantity
+Time
 
 This will be implemented as a struct with a constructor included. I am including a constructor because values are normalized during creation, input can be validated, required information cannot be accidentally omitted.
 
@@ -43,6 +44,8 @@ Cancelling an order that doesn't exist will throw an error.
 If one incoming order fills several resting orders, the filled orders will be removed from the queue.
 
 Each trade reports the buyer ID, seller ID, execution price, executed quantity, and remaining quantity of any partially filled order.
+
+Time will be updated by the order book, not by the caller. It will have a default value of 0.
 
 ## Order Book
 

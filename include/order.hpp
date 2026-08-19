@@ -16,6 +16,7 @@ struct Order
     Side side;
     double price;
     int quantity;
+    int time = 0;
 
     Order(std::string id, Side side, double price, int quantity)
         : id(id), 

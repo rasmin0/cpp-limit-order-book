@@ -16,7 +16,7 @@ void OrderBook::addOrder(Order order)
     if (activeIDs.find(id) != activeIDs.end()) {
         throw std::invalid_argument("ID already exists");
     }
-    
+    order.time = nextTime;
 
     if (side == Side::BUY) {
         buyOrders[price].push_back(order);
@@ -24,6 +24,7 @@ void OrderBook::addOrder(Order order)
         sellOrders[price].push_back(order);
     }
     activeIDs[id] = orderLocation;
+    nextTime++;
 }
 
 void OrderBook::cancelOrder(const std::string &id)

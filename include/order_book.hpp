@@ -17,7 +17,7 @@ private:
     std::map<double, std::deque<Order>, std::greater<double>> buyOrders;
     std::map<double, std::deque<Order>> sellOrders;
     std::unordered_map<std::string, OrderLocation> activeIDs;
-    std::size_t nextTime;
+    std::size_t nextTime = 0;
 
 public:
     // submit/add order
