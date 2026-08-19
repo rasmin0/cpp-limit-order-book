@@ -38,3 +38,11 @@ struct Order
     }
 
 };
+
+struct Trade 
+{
+    std::string buyerID;
+    std::string sellerID;
+    double price;
+    int quantity;
+};
