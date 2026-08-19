@@ -340,6 +340,10 @@ Trade if possible
    ↓
 Put leftover order in book
 
+We will use two different functions for matching a trade; one for and incoming BUY order and one for an incoming SELL order.
+
+This will make the logic cleaner and make the code easier to debug.
+
 
 ## Price-Time Priority
 Price-time priority is the rule for deciding who gets served first, if there are multiple orders.

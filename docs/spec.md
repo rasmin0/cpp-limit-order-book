@@ -63,3 +63,39 @@ We will also keep track of active IDs using an unordered map, with the key being
 Methods for the class include addOrder and cancelOrder, which will both be void.
 
 Time will be incremented each time a new order is added to the queue. 
+
+## Matching Engine
+
+The matching engine looks at incoming orders and decides whether they can trade with orders already waiting in the order book.
+
+It asks if this new order trade with someone already waiting.
+
+If yes, it creates a trade. If not, the new order gets added to the order book.
+
+When a order is added to the book, through the addOrder function, it's checked if its a valid order (the ID doesn't already exist).
+
+If it's a valid order, it's then checked if it's a BUY or SELL order.
+
+If it's a valid BUY order, the matchBuy function is called.
+
+The incoming BUY order is compared with the best resting SELL order. 
+
+If BUY price >= SELL price, a trade can happen at the resting SELL price.
+
+A trade is executed at the minimum of the incoming BUY shares and resting SELL shares.
+
+If the incoming BUY order has shares left and the resting SELL order doesn't after execution, the resting SELL order is removed from the book and the activeIDs map. If there are anymore resting orders in the SELL book, the process is repeated until there the incoming BUY order has no shares left, no trade can happen or there are no SELL orders left. If no trade can happen or there are no SELL orders left, the BUY order is added to the book.
+
+If the incoming BUY order has no shares left, it never gets added to the book. The resting SELL stays at the front of the deque and the quantity gets updated accordingly, while keeping its original priority/time.
+
+If it's a valid SELL order, the matchSell function is called.
+
+The incoming SELL order is compared with the best resting BUY order. 
+
+If SELL price <= BUY price, a trade can happen at the resting BUY price.
+
+A trade is executed at the minimum of the SELL shares and resting BUY shares.
+
+If the incoming SELL order has shares left and the resting BUY order doesn't after execution, the resting BUY order is removed from the book and the activeIDs map. If there are anymore resting orders in the BUY book, the process is repeated until there the incoming BUY order has no shares left, no trade can happen or there are no BUY orders left. If no trade can happen or there are no BUY orders left, the SELL order is added to the book.
+
+If the incoming SELL order has no shares left, it never gets added to the book. The resting BUY stays at the front of the deque and the quantity gets updated accordingly, while keeping its original priority/time.

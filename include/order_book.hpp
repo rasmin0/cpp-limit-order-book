@@ -24,4 +24,6 @@ public:
     // cancel order
     void addOrder(Order order);
     void cancelOrder(const std::string& id);
+    void matchBuy(Order& order);
+    void matchSell(Order& order);
 };

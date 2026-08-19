@@ -60,3 +60,11 @@ void OrderBook::cancelOrder(const std::string &id)
     }
     activeIDs.erase(id);
 }
+
+void OrderBook::matchBuy(Order &order)
+{
+}
+
+void OrderBook::matchSell(Order &order)
+{
+}
